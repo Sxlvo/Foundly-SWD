@@ -1,21 +1,11 @@
 # Lab 1 CI/CD
 
-Foundly è un’applicazione Java 21 distribuita come WAR. La pipeline verifica che una modifica compili, superi i test e produca il pacchetto distribuibile.
+Il workflow `ci.yml` esegue i test e crea il WAR di Foundly a ogni push o pull request verso `main` o `master`. Usa Java 21 e il Maven Wrapper con Maven 3.9.6. I test usano dipendenze simulate, quindi GitHub Actions può eseguirli senza credenziali Aiven (servizio di hosting gratuito fortunamente trovato).
 
-## Workflow
+## Problema incontrato
 
-`.github/workflows/ci.yml` parte sui push e sulle pull request verso `main` o `master`. Il job usa un runner Ubuntu 24.04 e un token con accesso in sola lettura ai contenuti del repository.
-
-1. Checkout scarica la revisione associata all’evento.
-2. Setup Java seleziona Eclipse Temurin 21 e riusa la cache delle dipendenze Maven quando la chiave corrisponde.
-3. Il Maven Wrapper fissa Maven a 3.9.6. `./mvnw --batch-mode --no-transfer-progress clean verify` ricostruisce il progetto da zero, esegue la suite con JUnit 6.1.3 e Mockito 5.24.0, genera il report JaCoCo e produce il WAR se la verifica riesce.
-
-## Riproducibilità e qualità
-
-La stessa versione principale di Java e la stessa distribuzione Maven si usano in locale e in CI. Maven dichiara esplicitamente le dipendenze e i plugin principali. La cache riduce i download e la fase `clean` elimina i risultati della build precedente. La suite simula JDBC e il servizio di geocoding, quindi la pipeline può girare senza credenziali Aiven.
-
-La verifica locale del 26 novembre 2026 ha eseguito 177 test con zero fallimenti, errori o test saltati, e ha prodotto il WAR. I report Surefire in `target/surefire-reports` e JaCoCo in `target/site/jacoco` permettono di approfondire gli esiti. Il risultato su un runner GitHub andrà verificato dopo il primo push.
+Al primo avvio Maven Central ha risposto con un errore **HTTP 429** mentre il wrapper scaricava Maven. La pipeline si è fermata prima di avviare i test. Abbiamo rilanciato il job sullo stesso commit (`17c8c6c`). Al secondo tentativo il download è riuscito, **tutti i 177 test sono passati** e il WAR è stato generato. [Log della build riuscita](https://github.com/Sxlvo/Foundly-SWD/actions/runs/45854471636/job/140031308493)
 
 ## Confronto con SorrentoMarina
 
-Il workflow di riferimento usa Temurin 21, inizializza SQLite, esegue Maven e aggiunge passaggi per coverage e pubblicazione. Ho riprodotto localmente la sua inizializzazione SQLite e la fase dei test sulla revisione `21b0e18`. Il risultato è 445 test rilevati, 444 passati e 1 saltato. In Foundly il job può eseguire i test unitari con i mock. La consegna del Lab 1 è concentrata sulla build e sulla verifica a ogni modifica. [Workflow di riferimento](https://github.com/dardin88/SorrentoMarina/blob/21b0e18f42da5ef2f9759a07f1d02f8a99970f3c/.github/workflows/build-test.yml)
+Abbiamo provato anche la fase di test del progetto di riferimento con SQLite. Il risultato è stato di **444 test passati e 1 saltato**. Per Foundly abbiamo mantenuto lo stesso JDK e usato i mock già presenti nella suite per simulare il database. [Workflow di SorrentoMarina](https://github.com/dardin88/SorrentoMarina/blob/21b0e18f42da5ef2f9759a07f1d02f8a99970f3c/.github/workflows/build-test.yml)
