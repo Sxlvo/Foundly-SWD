@@ -88,6 +88,7 @@ The launcher uses the configured Aiven service by default. To use another servic
 ## Software Dependability
 
 - [Lab 1 CI/CD](CICD.md)
+- [Lab 2a · Docker](Docker.md)
 
 ## 👥 Authors
 
