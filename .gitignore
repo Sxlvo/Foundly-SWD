@@ -1,0 +1,10 @@
+/target/
+/.idea/
+/.run/
+*.iml
+.DS_Store
+.env
+.env.*
+!/.env.example
+/db/aiven-truststore.p12
+/repomix-output.xml

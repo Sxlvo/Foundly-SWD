@@ -1,0 +1,453 @@
+:root {
+    /* Palette Colori Arancione (Stile Google/Material) */
+    --primary-color: #FB8C00;
+    --primary-hover: #F57C00;
+    --primary-light: #FFE0B2;
+    --text-dark: #202124;
+    --text-grey: #5f6368;
+    --bg-color: #f0f2f5;
+    --white: #ffffff;
+    --border-radius: 8px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-dark);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* --- CONTENITORE PRINCIPALE --- */
+.main-container {
+    display: flex;
+    width: 100%;
+    max-width: 1200px;
+    min-height: 80vh;
+    height: auto;
+    background-color: var(--white);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+}
+
+/* --- PARTE SINISTRA (Info) --- */
+.info-section {
+    position: relative;
+    flex: 1;
+    background: linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%);
+    padding: 190px 60px 60px 60px; /* spazio tra logo e testo */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+/* Logo in alto a sinistra su schermi grandi */
+.brand-header {
+    position: absolute;
+    top: 32px;
+    left: 40px;
+}
+
+.brand-icon img {
+    height: 150px;
+    width: 150px;
+    display: block;
+}
+
+.hero-text h1 {
+    font-size: 3rem;
+    line-height: 1.2;
+    margin-bottom: 20px;
+    color: var(--text-dark);
+}
+
+.hero-text p {
+    font-size: 1.1rem;
+    color: var(--text-grey);
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+.feature-pills {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.pill {
+    background-color: rgba(255, 255, 255, 0.6);
+    padding: 8px 16px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #E65100;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* pill attiva evidenziata */
+.pill.active {
+    background-color: #ffffff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border: 1px solid #FF9800;
+}
+
+/* --- PARTE DESTRA (Form) --- */
+.auth-section {
+    flex: 1.2;
+    padding: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--white);
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 480px;
+}
+
+.auth-card h2 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    color: var(--text-grey);
+    margin-bottom: 30px;
+}
+
+/* --- STILE INPUT --- */
+.input-group {
+    margin-bottom: 20px;
+}
+
+/* per righe affiancate */
+.input-row {
+    display: flex;
+    gap: 15px;
+}
+
+.input-group label {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--text-grey);
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #dadce0;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background-color: #fafafa;
+}
+
+.input-group input:focus {
+    border-color: var(--primary-color);
+    background-color: var(--white);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(251, 140, 0, 0.2);
+}
+
+/* --- BOTTONI --- */
+.btn-primary {
+    width: 100%;
+    padding: 14px;
+    background-color: var(--primary-color);
+    color: var(--white);
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-hover);
+    box-shadow: 0 4px 12px rgba(251, 140, 0, 0.3);
+}
+
+.mt-2 {
+    margin-top: 20px;
+}
+
+/* Utility Links */
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+}
+
+.forgot-password {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.back-link {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--text-grey);
+}
+
+.back-link a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+/* --- FOOTER FORM (login/registrazione) --- */
+.form-footer {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    color: #666;
+    font-size: 0.95rem;
+}
+
+.link-login {
+    color: #FB8C00;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.link-login:hover {
+    background-color: #FFF3E0;
+    color: #E65100;
+}
+
+/* --- BOTTONI REGISTRAZIONE / OSPITE (pagina login) --- */
+.registration-area {
+    margin-top: 24px;
+    text-align: center;
+}
+
+.registration-area p {
+    margin-bottom: 12px;
+    color: #5f6368;
+}
+
+.reg-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+/* base comune per registrazione e ospite */
+.btn-register,
+.btn-guest {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    line-height: 1.2;
+    white-space: nowrap;
+}
+
+/* stile registrazione */
+.btn-register {
+    border: 1px solid #FFB74D;
+    background: #FFF7EC;
+    color: #E65100;
+}
+
+.btn-register:hover {
+    background: #FFE7CF;
+    border-color: #FFA726;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+}
+
+/* versione Drop Point */
+.btn-register.drop {
+    border-color: #FFCC80;
+}
+
+.btn-register.drop:hover {
+    background: #FFE0C0;
+}
+
+/* stile per "Continua come ospite" */
+.btn-guest {
+    border: 1px solid #e0e0e0;
+    background: #ffffff;
+    color: var(--text-grey);
+}
+
+.btn-guest:hover {
+    background: #f7f7f7;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-register .material-icons,
+.btn-guest .material-icons {
+    font-size: 18px;
+}
+
+/* Desktop: "Continua come ospite" sotto ma non a tutta larghezza */
+@media (min-width: 768px) {
+    .reg-buttons {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .reg-buttons .btn-guest {
+        flex-basis: 100%; /* resta su una riga tutta sua */
+        max-width: 220px; /* ma visivamente è più corto */
+        margin-top: 4px;
+        margin-inline: auto; /* centrato */
+        padding: 8px 12px; /* un filo meno largo */
+    }
+}
+
+/* --- STILE MAPPA (registrazione droppoint) --- */
+#map {
+    height: 250px;
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    border: 1px solid #dadce0;
+    z-index: 1;
+}
+
+.map-label {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--text-grey);
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+/* --- RESPONSIVE MOBILE / TABLET --- */
+@media (max-width: 960px) {
+    .main-container {
+        flex-direction: column;
+        height: auto;
+        min-height: auto;
+    }
+
+    .info-section {
+        padding: 40px 30px;
+        min-height: 300px;
+    }
+
+    .auth-section {
+        padding: 40px 20px;
+    }
+
+    .hero-text h1 {
+        font-size: 2.2rem;
+    }
+
+    /* Logo centrato sopra al testo su schermi medi/piccoli */
+    .brand-header {
+        position: static;
+        margin-bottom: 24px;
+        text-align: center;
+    }
+
+    .brand-icon img {
+        height: 120px;
+        width: auto;
+        margin: 0 auto;
+    }
+}
+
+/* --- FIX PER I RADIO BUTTON (Scelta Consegna) --- */
+
+/* Impedisce che il pallino diventi largo quanto tutto lo schermo */
+.input-group input[type="radio"] {
+    width: auto !important;       /* Torna alla dimensione naturale */
+    height: auto !important;
+    margin-right: 8px;            /* Spazio tra pallino e testo */
+    margin-bottom: 0;
+    padding: 0;
+    box-shadow: none;             /* Rimuove l'ombra degli input di testo */
+    border: none;
+    background-color: transparent;
+}
+
+/* Contenitore per mettere le due opzioni in riga */
+.radio-container {
+    display: flex;
+    gap: 25px;       /* Spazio tra le due opzioni */
+    margin-top: 8px;
+}
+
+/* Stile per l'etichetta cliccabile (pallino + testo) */
+.radio-label {
+    display: flex !important;     /* Forza allineamento orizzontale */
+    align-items: center;
+    font-weight: 500 !important;
+    color: #333 !important;
+    cursor: pointer;
+    margin-bottom: 0 !important;  /* Rimuove il margine sotto */
+    width: auto !important;       /* Non prendere tutta la riga */
+}
+
+.radio-label span {
+    font-size: 0.95rem;
+}
+.password-wrapper{
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-wrapper input{
+    width: 100%;
+    padding-right: 46px; /* spazio per l’icona */
+}
+
+.toggle-password{
+    position: absolute;
+    right: 10px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: inherit;
+}
+
+.toggle-password:focus{
+    outline: 2px solid rgba(0,0,0,0.2);
+    outline-offset: 2px;
+    border-radius: 10px;
+}

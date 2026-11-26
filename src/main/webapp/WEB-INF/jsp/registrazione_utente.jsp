@@ -1,0 +1,291 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foundly - Registrazione Utente</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/login.css">
+
+    <!-- STILE SNACKBAR -->
+    <style>
+        #snackbar {
+            visibility: hidden;
+            min-width: 280px;
+            max-width: 90%;
+            background-color: #43a047;
+            color: #fff;
+            text-align: left;
+            border-radius: 8px;
+            padding: 12px 16px;
+            position: fixed;
+            left: 50%;
+            bottom: 24px;
+            transform: translateX(-50%) translateY(20px);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+            opacity: 0;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            z-index: 9999;
+        }
+
+        #snackbar.show {
+            visibility: visible;
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        #snackbar .material-icons {
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="main-container">
+
+    <div class="info-section">
+        <div class="brand-header">
+            <div class="brand-icon">
+                <img src="<%= request.getContextPath() %>/assets/images/logo.png" alt="logo_foundly">
+            </div>
+        </div>
+
+        <div class="hero-text">
+            <h1>Entra nella Community</h1>
+            <p>
+                Registrati come utente per segnalare oggetti ritrovati o reclamare ciò che hai perso.
+                Aiutaci a costruire una rete di cittadini onesti e collaborativi.
+            </p>
+            <div class="feature-pills">
+                <span class="pill active"><span class="material-icons">security</span> Secure Claim</span>
+                <span class="pill"><span class="material-icons">store</span> Drop-Points</span>
+                <span class="pill"><span class="material-icons">emoji_events</span> Scoreboard</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="auth-section">
+        <div class="auth-card">
+            <h2>Crea Account</h2>
+            <p class="subtitle">Inserisci i tuoi dati personali</p>
+
+            <%-- Gestione Errori --%>
+            <% String errore = (String) request.getAttribute("errore"); %>
+            <% if (errore != null) { %>
+            <div style="background-color: #ffebee; color: #c62828; padding: 10px; border-radius: 8px; margin-bottom: 20px; font-size: 0.9rem; text-align: center;">
+                <span class="material-icons" style="font-size: 16px; vertical-align: middle;">error</span> <%= errore %>
+            </div>
+            <% } %>
+
+            <form action="${pageContext.request.contextPath}/registrazione-utente" method="post">
+
+                <div class="input-row">
+                    <div class="input-group">
+                        <label for="nome">Nome</label>
+                        <input type="text" id="nome" name="nome" placeholder="Es. Mario" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="cognome">Cognome</label>
+                        <input type="text" id="cognome" name="cognome" placeholder="Es. Rossi" required>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" placeholder="Scegli un username" required>
+                </div>
+
+                <div class="input-row">
+                    <div class="input-group" style="flex: 2;">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="mario.rossi@email.com" required>
+                    </div>
+                    <div class="input-group" style="flex: 1;">
+                        <label for="telefono">Telefono</label>
+                        <input
+                                type="tel"
+                                id="telefono"
+                                name="telefono"
+                                placeholder="342..."
+                                required
+                                inputmode="numeric"
+                                pattern="^[0-9]{10}$"
+                                minlength="10"
+                                maxlength="10"
+                                title="Inserisci un numero di telefono di 10 cifre (solo numeri)."
+                        >
+                        <div id="telefonoError"
+                             style="display:none; color:#c62828; font-size:0.8rem; margin-top:4px;">
+                            Il numero di telefono deve contenere esattamente 10 cifre (solo numeri).
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="password">Password</label>
+
+                    <div class="password-wrapper">
+                        <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                placeholder="Minimo 8 caratteri"
+                                required
+                                minlength="8"
+                                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&._#-])[A-Za-z\d@$!%*?&._#-]{8,}$"
+                                title="Almeno 8 caratteri, con una maiuscola, una minuscola, un numero e un carattere speciale (@$!%*?&._#-)"
+                        >
+                        <button type="button" class="toggle-password" aria-label="Mostra/Nascondi password"
+                                onclick="togglePassword()">
+                            <span class="material-icons" id="togglePasswordIcon">visibility</span>
+                        </button>
+                    </div>
+
+                    <small id="passwordHelp" style="color:#777; font-size:0.8rem;">
+                        Minimo 8 caratteri, almeno 1 maiuscola, 1 minuscola, 1 numero e 1 carattere speciale
+                        (@$!%*?&._#-).
+                    </small>
+                    <div id="passwordError" style="display:none; color:#c62828; font-size:0.8rem; margin-top:4px;">
+                        La password non rispetta i requisiti indicati.
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-primary mt-2">Registrati</button>
+
+                <div class="form-footer">
+                    <span>Hai già un account?</span>
+                    <a href="${pageContext.request.contextPath}/login" class="link-login">Accedi qui</a>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<!-- SNACKBAR (notifica di successo) -->
+<div id="snackbar">
+    <span class="material-icons">check_circle</span>
+    <span class="snackbar-text">
+        Registrazione completata! Ora puoi effettuare il login.
+    </span>
+</div>
+
+<script>
+    // Toggle visibilità password
+    function togglePassword() {
+        const pwd = document.getElementById("password");
+        const icon = document.getElementById("togglePasswordIcon");
+        if (!pwd || !icon) return;
+
+        const hidden = pwd.type === "password";
+        pwd.type = hidden ? "text" : "password";
+        icon.textContent = hidden ? "visibility_off" : "visibility";
+    }
+</script>
+
+<script>
+    // Validazione password e telefono lato Client
+    (function () {
+        const form = document.querySelector('.auth-card form');
+        const passwordInput = document.getElementById('password');
+        const passwordError = document.getElementById('passwordError');
+        const telefonoInput = document.getElementById('telefono');
+        const telefonoError = document.getElementById('telefonoError');
+
+        if (!form || !passwordInput || !passwordError || !telefonoInput || !telefonoError) return;
+
+        const passwordRegex =
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&._#-])[A-Za-z\d@$!%*?&._#-]{8,}$/;
+        const telefonoRegex = /^[0-9]{10}$/;
+
+        function validatePassword() {
+            const value = passwordInput.value || "";
+
+            if (passwordRegex.test(value)) {
+                passwordInput.style.borderColor = '#ccc';
+                passwordError.style.display = 'none';
+                return true;
+            } else {
+                if (value.length > 0) {
+                    passwordInput.style.borderColor = '#c62828';
+                    passwordError.style.display = 'block';
+                } else {
+                    passwordInput.style.borderColor = '#ccc';
+                    passwordError.style.display = 'none';
+                }
+                return false;
+            }
+        }
+
+        function validateTelefono() {
+            const value = (telefonoInput.value || "").trim();
+
+            if (telefonoRegex.test(value)) {
+                telefonoInput.style.borderColor = '#ccc';
+                telefonoError.style.display = 'none';
+                return true;
+            } else {
+                if (value.length > 0) {
+                    telefonoInput.style.borderColor = '#c62828';
+                    telefonoError.style.display = 'block';
+                } else {
+                    telefonoInput.style.borderColor = '#ccc';
+                    telefonoError.style.display = 'none';
+                }
+                return false;
+            }
+        }
+
+        passwordInput.addEventListener('input', validatePassword);
+        telefonoInput.addEventListener('input', validateTelefono);
+
+        form.addEventListener('submit', function (e) {
+            const passwordOk = validatePassword();
+            const telefonoOk = validateTelefono();
+
+            if (!passwordOk || !telefonoOk) {
+                e.preventDefault();
+                (passwordOk ? telefonoInput : passwordInput).focus();
+            }
+        });
+    })();
+</script>
+
+
+<script>
+    // Mostra e nasconde automaticamente lo snackbar
+    function showSnackbar() {
+        const snackbar = document.getElementById('snackbar');
+        if (!snackbar) return;
+        snackbar.classList.add('show');
+
+        setTimeout(function () {
+            snackbar.classList.remove('show');
+        }, 4000); // 4 secondi
+    }
+</script>
+
+<%
+    // Lato servlet devi impostare request.setAttribute("registrazioneOK", true);
+    Boolean registrazioneOK = (Boolean) request.getAttribute("registrazioneOK");
+    if (registrazioneOK != null && registrazioneOK) {
+%>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        showSnackbar();
+    });
+</script>
+<%
+    }
+%>
+
+</body>
+</html>

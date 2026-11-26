@@ -1,0 +1,105 @@
+.admin-main {
+    max-width: 1100px;
+    margin: 24px auto 40px;
+    padding: 0 24px 40px;
+}
+
+.admin-section { margin-bottom: 32px; }
+
+.admin-title {
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: #202124;
+}
+
+.admin-card {
+    background-color: #FFFFFF;
+    border-radius: 18px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    padding: 16px 20px 18px;
+}
+
+.admin-subtitle {
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-bottom: 12px;
+    color: #E65100;
+}
+
+.admin-empty {
+    font-size: 0.95rem;
+    color: #757575;
+    padding: 4px 0 8px;
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.admin-table th,
+.admin-table td {
+    padding: 10px 14px;
+    text-align: left;
+    border-bottom: 1px solid #f0f0f0;
+    vertical-align: middle;            /* allinea bene testo/pulsanti */
+}
+
+.admin-table th {
+    font-weight: 600;
+    color: #5F6368;
+    background-color: #FAFAFA;
+}
+
+/* --- AZIONI: evita che i pulsanti “sporchino” la riga/bordo --- */
+.admin-table td:last-child {           /* colonna Azioni */
+    white-space: nowrap;               /* niente wrap che “taglia” visivamente */
+}
+
+.admin-actions {
+    display: inline-flex;              /* non prende tutta la larghezza della cella */
+    gap: 8px;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+.inline-form {
+    display: inline-flex;              /* evita baseline/line-height strani */
+    margin: 0;
+}
+
+.btn-admin-approve,
+.btn-admin-reject,
+.btn-admin-delete {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 10px;                 /* un filo più “pulito” */
+    border-radius: 999px;
+    border: none;
+    font-size: 0.95rem;
+    cursor: pointer;
+    font-weight: 500;
+    line-height: 1;                    /* evita che la riga sembri spezzata */
+}
+
+/* colori */
+.btn-admin-approve { background-color: #E8F5E9; color: #2E7D32; }
+.btn-admin-reject  { background-color: #FFEBEE; color: #C62828; }
+.btn-admin-delete  { background-color: #FFF3E0; color: #E65100; }
+
+.btn-admin-approve:hover { background-color: #C8E6C9; }
+.btn-admin-reject:hover  { background-color: #FFCDD2; }
+.btn-admin-delete:hover  { background-color: #FFE0B2; }
+
+.admin-note {
+    font-size: 0.8rem;
+    color: #9E9E9E;
+}
+
+/* Rimuove SOLO l'ultima linea della tabella (se vuoi mantenerla, elimina questo blocco) */
+.admin-table tbody tr:last-child td {
+    border-bottom: none;
+}
